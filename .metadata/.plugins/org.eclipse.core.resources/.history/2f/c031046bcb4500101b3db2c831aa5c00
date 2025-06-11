@@ -1,0 +1,11 @@
+package com.example.demo_gradle.dto;
+
+public class Member {
+	private String name;
+	private String nickName;
+	private String age;
+	private double weight;
+	private String addr;
+	
+	// DTO // 데이터를 전송해주는 역할을 하는것
+}

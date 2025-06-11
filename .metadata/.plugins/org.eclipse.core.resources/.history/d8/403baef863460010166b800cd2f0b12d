@@ -1,0 +1,10 @@
+package com.shop.dto;
+
+public class ItemDto {
+
+	
+	private Long id;
+	private String Item;
+	
+	
+}

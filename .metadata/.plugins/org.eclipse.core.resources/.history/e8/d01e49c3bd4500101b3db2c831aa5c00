@@ -1,0 +1,4 @@
+spring.application.name=demo_gradle
+
+# 주석입니다.
+# 스프링 부트의 각종 설정을 세팅하는 파일입니다 db연동 jpa세팅

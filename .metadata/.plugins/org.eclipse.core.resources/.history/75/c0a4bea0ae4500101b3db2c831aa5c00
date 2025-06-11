@@ -1,0 +1,11 @@
+package com.example.demo_gradle;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class HelloController {
+
+	// 개발자가 객체 생성
+	HelloController helloC = new HelloController();
+
+}

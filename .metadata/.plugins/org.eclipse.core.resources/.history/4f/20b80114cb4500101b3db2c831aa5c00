@@ -1,0 +1,6 @@
+package com.example.demo_gradle.dto;
+
+public class Member {
+	private String name;
+	private String 
+}

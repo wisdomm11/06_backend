@@ -1,0 +1,38 @@
+package com.example.demo_gradle;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller // 스프링 프레임워크에서 객체를 자동으로 생성하는것 // 컨테이너에서 등록하는것
+public class HelloController {
+
+	// 개발자가 객체 생성
+	// HelloController hello = new HelloController();
+	
+	@GetMapping("/")
+	@ResponseBody
+	public String hello() {
+		return "index";
+	}
+	
+	@GetMapping("/world")
+	@ResponseBody
+	public String world() {
+				
+		return "world입니다";
+	}
+	
+	@GetMapping("/board")
+	@ResponseBody
+	public String board() {
+		return "board.html"; // static/board.html
+	}
+	
+	
+	@GetMapping("/qna")
+	public String qna() {
+		return "qna.html";
+	}
+	
+}

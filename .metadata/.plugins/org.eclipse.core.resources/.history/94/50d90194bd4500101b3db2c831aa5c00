@@ -1,0 +1,3 @@
+spring.application.name=demo_gradle
+
+# 주석입니다.

@@ -24,6 +24,22 @@ repositories {
 }
 
 dependencies {
+	// db 라이브러리
+	// MySQL Driver
+    implementation 'com.mysql:mysql-connector-j:8.0.33' // 버전은 상황에 따라 최신으로
+
+           
+    //oracle 라이브러리 
+	//implementation 'com.oracle.database.jdbc:ojdbc10'
+	implementation 'com.oracle.database.jdbc:ojdbc11'
+	
+	//JDBC
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+
+
+
+
 	// h2 DB
 	runtimeOnly 'com.h2database:h2'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

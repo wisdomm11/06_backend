@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -114,10 +115,35 @@ public class ThymeleafExController {
     		@RequestParam("pwd") String pwd
     		) 
     {
-    	System.out.println(id);
+    	System.out.println("get id : " + id);
     	System.out.println(pwd);
-    	return "ID: " + id + "<br>비밀번호: " + pwd;
+    	return "redirect:/thymeleafEx/ex05";
     }
+    
+    @PostMapping("/ex06_3") // localhost:8082/thymeleaf/ex06_1
+    public String formPost(
+    		@RequestParam("id") String id,
+    		@RequestParam("pwd") String pwd
+    		) 
+    {
+    	System.out.println("post id:" + id);
+    	System.out.println("post pwd:" + pwd);
+    	
+    	return "redirect:/thymeleaf/ex05";
+    }
+    
+ // localhost:8082/thymeleaf/ex07
+    @GetMapping(value = "/ex07")
+    public String thymeleafExample07(){
+        return "thymeleafEx/thymeleafEx07";
+    }
+    
+    // localhost:8082/thymeleaf/ex08
+    @GetMapping(value = "/ex08")
+    public String thymeleafExample08(){
+        return "thymeleafEx/thymeleafEx08";
+    }
+
 
 
 

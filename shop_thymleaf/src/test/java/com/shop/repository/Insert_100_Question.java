@@ -18,10 +18,10 @@ public class Insert_100_Question {
 	@Test
 	void insert100Question() {
 		
-		Question question = new Question();
+		// Question question = new Question();
 		
 		for (int i=1; i<=100; i++) {
-			// Question question = new Question();
+			Question question = new Question();
 			
 			question.setSubject("제목" + i);
 			question.setContent("내용" + i);

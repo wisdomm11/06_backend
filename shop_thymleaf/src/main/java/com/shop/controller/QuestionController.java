@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shop.entity.Question;
@@ -51,6 +52,28 @@ public class QuestionController {
 		System.out.println("컨트롤러 요청 성공");
 		return "question_list"; // 3번 뷰 페이지를 전송하는것
 	}
+	
+	// 질문 상세 페이지
+		@GetMapping("/detail/{id}") // 중괄호 아이디는 변수!!
+		public String detail(
+				Model model,
+				@PathVariable("id") Integer id
+				) {
+			
+//			System.out.println("id 변수 값 : " + id);
+			
+			// 넘겨받는 id값을 가지고 퀘스천 레파지토리 파인드바이아이디
+			Question question =	questionService.getQuestion(id);
+			
+//			System.out.println(question.getSubject());
+//			System.out.println(question.getContent());
+//			System.out.println(question.getId());
+			
+			model.addAttribute("question", question);
+			
+			return "question_detail";
+			
+		}
 	
 	
 	

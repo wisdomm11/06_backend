@@ -1,0 +1,34 @@
+
+
+
+<h2>질문 게시판</h2>
+<hr>
+
+<table>
+	<thead>
+		<tr>
+			<th>아이디</th>
+			<th>이름</th>
+			<th>핸드폰</th>
+			<th>나이</th>
+			<th>작성날짜</th>
+		</tr>
+	</thead>
+	<tbody>
+	    <tr th:each="testMember : ${testMemberList}">
+	        <td th:text="${testMember.id}"></td>
+	        <td th:text="${testMember.name}"></td>
+	        <td th:text="${testMember.phone}"></td>
+	        <td th:text="${testMember.age}"></td>
+	        <td th:text="${testMember.createDate}"></td>
+	    </tr>
+	</tbody>
+</table>
+
+<!-- 100개 출력하기 // 레코드 100개 // id name phone age createDate -->
+<!-- localhost:8082/testmember/list -->
+<!-- 
+	
+	
+	
+-->

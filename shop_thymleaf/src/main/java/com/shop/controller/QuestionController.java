@@ -5,14 +5,20 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shop.dto.AnswerForm;
+import com.shop.dto.QuestionForm;
 import com.shop.entity.Question;
 import com.shop.repository.QuestionRepository;
 import com.shop.service.QuestionService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 //ioc 컨테이너에 빈(객체) 등록하는 어노테이션
@@ -57,7 +63,8 @@ public class QuestionController {
 		@GetMapping("/detail/{id}") // 중괄호 아이디는 변수!!
 		public String detail(
 				Model model,
-				@PathVariable("id") Integer id
+				@PathVariable("id") Integer id,
+				AnswerForm answerForm
 				) {
 			
 //			System.out.println("id 변수 값 : " + id);
@@ -74,8 +81,54 @@ public class QuestionController {
 			return "question_detail";
 			
 		}
+		
+		// 질문 등록 // 뷰 페이지 처리
+	    @GetMapping("/create")
+	    public String questionCreate(
+	    		QuestionForm questionForm
+	    		) {
+	        return "question_form";
+	    }
+	    
+	    // 질문 등록을 받아서 db에 저장하는것
+	    @PostMapping("/create")
+	    public String questionCreate (
+	    		// @RequestParam(value="subject") String subject, 
+	    		// @RequestParam(value="content") String content
+	    		@Valid QuestionForm questionForm,
+	    		BindingResult bindingResult
+	    		) 
+	    {
+	    	
+//	    	System.out.println("질문 등록 post 요청 성공");
+//	    	System.out.println(subject);
+//	    	System.out.println(content);
+	    	System.out.println(questionForm.getSubject());
+	    	System.out.println(questionForm.getContent());
+	    	
+	    	if(bindingResult.hasErrors()) {
+	    		return "question_form";
+	    	}
+
+	        // TODO 질문을 저장한다.
+	        questionService.create(questionForm.getSubject(), questionForm.getContent());
+
+
+	        return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
+	    }
+	    
+	    
+	    
+	   
+
+	    
+	}
+
+	    
+	    
+
 	
 	
 	
 	
-}
+

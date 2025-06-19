@@ -38,12 +38,13 @@ public class AnswerService {
 	
     // 스프링 프레임워크 도메인 // 페이지 !!
     // 질문 리스트 // 페이징 처리
-    public Page<Answer> getList(int page) {
+    public Page<Answer> getList(int page, Question question) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
     	
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        return this.answerRepository.findAll(pageable);
+        // question에 속한 답변만 페이징
+        return this.answerRepository.findByQuestion(question, pageable);
     }
 	
 }

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.dto.AnswerForm;
 import com.shop.dto.QuestionForm;
+import com.shop.entity.Answer;
 import com.shop.entity.Question;
 import com.shop.repository.QuestionRepository;
+import com.shop.service.AnswerService;
 import com.shop.service.QuestionService;
 
 import jakarta.validation.Valid;
@@ -44,6 +46,7 @@ public class QuestionController {
 	
 //	private final QuestionRepository questionRepository;
 	private final QuestionService questionService;
+	private final AnswerService answerService;
 	
 	// localhost:8082/question/list?page=1
 	
@@ -84,11 +87,13 @@ public class QuestionController {
 	}
 	
 	// 질문 상세 페이지
-		@GetMapping("/detail/{id}") // 중괄호 아이디는 변수!!
+		@GetMapping("/detail/{id}/{id2}") // 중괄호 아이디는 변수!!
 		public String detail(
 				Model model,
 				@PathVariable("id") Integer id,
-				AnswerForm answerForm
+				@PathVariable("id2") Integer id2,
+				AnswerForm answerForm,
+				@RequestParam(value="page", defaultValue="0") Integer page
 				) {
 			
 //			System.out.println("id 변수 값 : " + id);
@@ -96,11 +101,14 @@ public class QuestionController {
 			// 넘겨받는 id값을 가지고 퀘스천 레파지토리 파인드바이아이디
 			Question question =	questionService.getQuestion(id);
 			
+			Page<Answer> paging = this.answerService.getList(page,question);
+			
 //			System.out.println(question.getSubject());
 //			System.out.println(question.getContent());
 //			System.out.println(question.getId());
 			
 			model.addAttribute("question", question);
+			model.addAttribute("paging", paging);
 			
 			return "question_detail";
 			

@@ -31,19 +31,7 @@ public class AnswerController {
 	private final AnswerService answerService;
 	private final QuestionService questionService;
 	
-	@GetMapping("/create/{id}")
-	public String answerList(
-			Model model,
-			@RequestParam(value="page", defaultValue="0") Integer page
-			) {
-		
-		Page<Answer> paging = this.answerService.getList(page);
-		
-		model.addAttribute("paging", paging);
-		
-		return "question_detail";
 
-	}
 	
 	
 	// 답변 등록

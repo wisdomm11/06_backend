@@ -12,8 +12,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.shop.entity.Answer;
 import com.shop.entity.Question;
 import com.shop.exception.DataNotFoundException;
+import com.shop.repository.AnswerRepository;
 import com.shop.repository.QuestionRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class QuestionService {
 	
 	private final QuestionRepository questionRepository;
+	private final AnswerRepository answerRepository;
 	
 	// 퀘스천 테이블의 모든 값을 출력하는 메소드
 	// 질문 리스트를 처리하는 메소드
@@ -59,11 +62,22 @@ public class QuestionService {
     // 스프링 프레임워크 도메인 // 페이지 !!
     // 질문 리스트 // 페이징 처리
     public Page<Question> getList(int page) {
+        
+    	
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
     	
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return this.questionRepository.findAll(pageable);
+    }
+    
+    
+    public Page<Answer> getList(int page, Question question) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createDate"));
+    	
+        Pageable pageable = PageRequest.of(page, 3, Sort.by(sorts));
+        return this.answerRepository.findAll(pageable);
     }
     
     

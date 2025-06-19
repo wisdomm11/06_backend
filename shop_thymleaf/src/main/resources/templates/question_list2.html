@@ -15,8 +15,7 @@
 	</thead>
 	<tbody>
 		<tr th:each = "question, loop : ${paging}" >
-			<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-
+			<td th:text="${loop.count}"></td>
 			<td >
 				<a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}">db에서 출력 부분</a>
 			</td>
@@ -39,25 +38,28 @@
 		
 		
 		
-		
+		<li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+		    th:if="(${paging.number} == 0 and page <= 2)
+		           or
+		           (${paging.number} == 1 and page <= 2)
+		           or
+				   (${paging.number} >= ${paging.totalPages-3} and page >= ${paging.totalPages-4})
+				   or
+		           (${paging.number} >= ${paging.totalPages-2} and page >= ${paging.totalPages-3})
+		           or
+		           (page >= ${paging.number}-1 and page <= ${paging.number}+1 and ${paging.number} > 1 and ${paging.number} < ${paging.totalPages-2})"
+		    th:classappend="${page == paging.number} ? 'active'"
+		    class="page-item">
+		    <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+		</li>
+
+
 		
 		
 		
 		
 
-        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-		
-		
-		
-			th:if="${page >= paging.number-1 and page <= paging.number+1}"
-			
-			
-			
-			
-            th:classappend="${page == paging.number} ? 'active'" 
-            class="page-item">
-            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
-        </li>
+        
 
 		
 		

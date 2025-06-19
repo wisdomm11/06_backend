@@ -3,6 +3,7 @@ package com.shop.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,18 +45,41 @@ public class QuestionController {
 //	private final QuestionRepository questionRepository;
 	private final QuestionService questionService;
 	
+	// localhost:8082/question/list?page=1
+	
 	// 1번 // 클라이언트 요청
 	@GetMapping("/list") // localhost:8082/question/list
-	public String list(Model model) {
+	public String list(
+			Model model,
+			@RequestParam(value="page", defaultValue="0") Integer page
+			) 
+	{
 		
 		// 2번 // 비즈니스 로직을 처리하는것
+		// 모든 레코드를 담는것
 //		List<Question> questionList = questionRepository.findAll();
-		List<Question> questionList = questionService.getList();
+//		List<Question> questionList = questionService.getList();		
+		Page<Question> paging = this.questionService.getList(page);
+		
+		System.out.println("===페이지 관련 변수 값===");
+		System.out.println(paging.getNumber()); // 페이지 번호
+		System.out.println(paging.getSize()); // 페이지 안 레코드 개수
+		System.out.println(paging.getTotalElements()); // 전체 레코드 개수
+		System.out.println(paging.getTotalPages()); // 전체 페이지 개수
+		
+		System.out.println(paging.hasPrevious());
+		System.out.println(paging.hasNext());
+		
+		System.out.println(paging.isEmpty()); // 비어있으면 트루
+		
+		
+		
+		
+//		System.out.println("요청한 페이지 번호 : " + page);
 
+//		model.addAttribute("questionList", questionList);
+		model.addAttribute("paging", paging);
 		
-		model.addAttribute("questionList", questionList);
-		
-		System.out.println("컨트롤러 요청 성공");
 		return "question_list"; // 3번 뷰 페이지를 전송하는것
 	}
 	

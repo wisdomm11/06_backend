@@ -1,10 +1,3 @@
-
-<!--
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-
--->
-
-
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
     <!-- 질문 -->
@@ -33,6 +26,33 @@
             </div>
         </div>
     </div>
+	
+	<!-- 페이징처리 시작 -->
+	<div th:if="${!paging.isEmpty()}">
+	    <ul class="pagination justify-content-center">
+
+	        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+	            <a class="page-link"
+	                th:href="@{|?page=${paging.number-1}|}">
+	                <span>이전</span>
+	            </a>
+	        </li>
+
+	        <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+				th:if="${page >= paging.number-1 and page <= paging.number+1}"
+	            th:classappend="${page == paging.number} ? 'active'" 
+	            class="page-item">
+	            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+	        </li>
+
+	        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+	            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+	                <span>다음</span>
+	            </a>
+	        </li>
+
+	    </ul>
+	</div>
 	
 	
 	
